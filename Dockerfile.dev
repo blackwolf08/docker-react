@@ -1,0 +1,9 @@
+FROM node:alpine
+WORKDIR '/app'
+COPY package.json . 
+# install all requiared dependencies
+RUN npm install
+# copy all  folders from our project
+COPY . .
+# start our service 
+CMD ["npm","run","start"]

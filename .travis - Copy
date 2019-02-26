@@ -1,0 +1,33 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t ngingnpminstall -f Dockerfile.dev .
+script:
+  - docker run ngingnpminstall npm run test -- --coverage
+#deploy:
+# https://docs.travis-ci.com/user/deployment/azure-web-apps/
+#  provider: azure_web_apps
+#  username: azure_deployment_user       # If AZURE_WA_USERNAME isn't set
+#  password: azure_deployment_password   # If AZURE_WA_PASSWORD isn't set
+#  site: azure_deployment_sitename       # If AZURE_WA_SITE isn't set
+#  slot: azure_deployment_slotname       # (optional) If AZURE_WA_SLOT isn't set
+deploy:
+  provider: elasticbeanstalk
+  region: "us-west"
+  # name of our app
+  app: "docker"
+  #enviroment-name
+  env: "docker-env"
+  # storage space in cloud
+  bucket_name: ""
+  #excatly equels to app name
+  bucket_path: "docker"
+  on:
+    # run CI\CD in case of changes in master branch
+    branch: master
+  #API key to give accesss to our accoun
+  access_key_id: "$AWS_access_key"
+  secret_access_key:
+    secure: "$AWS_secret_key"
