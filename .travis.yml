@@ -7,7 +7,7 @@ before_install:
 script:
   - docker run ngingnpminstall npm run test -- --coverage
 deploy:
-# https://docs.travis-ci.com/user/deployment/azure-web-apps/   Check
+# https://docs.travis-ci.com/user/deployment/azure-web-apps/
 provider: azure_web_apps
 username: $username
 password: $password
