@@ -6,12 +6,14 @@ before_install:
   - docker build -t ngingnpminstall -f Dockerfile.dev .
 script:
   - docker run ngingnpminstall npm run test -- --coverage
-#deploy:
+deploy:
 # https://docs.travis-ci.com/user/deployment/azure-web-apps/
-#provider: azure_web_apps
-#username: $username
-#password: $password
-#site: '$site
+provider: azure_web_apps
+username: $username
+password: $password
+site: '$site
 # slot: azure_deployment_slotname       # (optional) If AZURE_WA_SLOT isn't set
-#on:
- # branch: master
+on:
+  # run CI\CD in case of changes in master branch
+  branch: master
+
